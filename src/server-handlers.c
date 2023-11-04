@@ -39,8 +39,8 @@ void handle_connection_request(struct echo_skt *skt, struct peer *client,
     memcpy(header->magic, PACKET_MAGIC, sizeof(struct packet_header));
 
     /* is a client already connected? */
-    if (client->connected) {
-        header->type = PACKET_SERVER_FULL;
+/*    if (client->connected) { 
+        header->type = PACKET_SERVER_FULL; 
     }
     else {
         header->type = PACKET_CONNECTION_ACCEPT;
@@ -52,7 +52,14 @@ void handle_connection_request(struct echo_skt *skt, struct peer *client,
         client->nextpunchthru_write = 0;
         client->linkip = sourceip;
     }
-
+*/
+    client->connected = 1;
+    client->seconds = 0;
+    client->timeouts = 0;
+    client->nextpunchthru = 0;
+    client->nextpunchthru_write = 0;
+    client->linkip = sourceip;
+    
     /* send the response. */
     struct echo response;
     response.size = sizeof(struct packet_header);
