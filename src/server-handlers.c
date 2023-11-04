@@ -53,13 +53,15 @@ void handle_connection_request(struct echo_skt *skt, struct peer *client,
         client->linkip = sourceip;
     }
 */
+    header->type = PACKET_CONNECTION_ACCEPT;
+
     client->connected = 1;
     client->seconds = 0;
     client->timeouts = 0;
     client->nextpunchthru = 0;
     client->nextpunchthru_write = 0;
     client->linkip = sourceip;
-    
+
     /* send the response. */
     struct echo response;
     response.size = sizeof(struct packet_header);
